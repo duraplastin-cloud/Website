@@ -353,7 +353,9 @@
       var form=document.getElementById("enquiryForm");
       if(form) form.addEventListener("submit",function(e){
         e.preventDefault();
-        var data={}; [].forEach.call(new FormData(form),function(v,k){ data[k]=v; });
+        var data={};
+        var fd=new FormData(form);
+        fd.forEach(function(value,key){ data[key]=value; });
         var required=["name","email","category","message"], missing=required.filter(function(k){ return !String(data[k]||"").trim(); });
         var status=document.getElementById("formStatus");
         if(missing.length){ if(status){ status.textContent="Please fill: "+missing.join(", "); status.style.borderColor="rgba(251,113,133,.45)"; status.style.background="rgba(251,113,133,.12)"; } return; }
